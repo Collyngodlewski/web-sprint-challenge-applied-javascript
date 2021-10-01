@@ -63,7 +63,7 @@ return cardDiv;
     
     axios.get(`http://localhost:5000/api/articles`)
     .then(resp =>{ 
-      const articles = Object.values(resp.data.articles).flat()
+      const articles = Object.values(resp.data.articles).flat() // I had to google .flat(). I found the information on MDN. 
       for(const article of articles){
         container.append(Card(article))
       }
