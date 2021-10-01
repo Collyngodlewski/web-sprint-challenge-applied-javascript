@@ -18,26 +18,37 @@ const Tabs = (topics) => {
   const tabOne = document.createElement('div');
   const tabTwo = document.createElement('div');
   const tabThree = document.createElement('div');
+  const tabFour = document.createElement('div');
+  const tabFive = document.createElement('div');
 
   topicsDiv.classList.add('topics');
   tabOne.classList.add('tab');
   tabTwo.classList.add('tab');
   tabThree.classList.add('tab');
+  tabFour.classList.add('tab');
+  tabFive.classList.add('tab');
 
   topicsDiv.appendChild(tabOne);
   topicsDiv.appendChild(tabTwo);
   topicsDiv.appendChild(tabThree);
+  topicsDiv.appendChild(tabFour);
+  topicsDiv.appendChild(tabFive);
 
-  tabOne.textContent = `${topics[0]}`;
-  tabTwo.textContent = `${topics[1]}`;
-  tabThree.textContent = `${topics[2]}`;
+  console.log(topics);
+
+  tabOne.textContent = topics[0]
+  tabTwo.textContent = topics[1];
+  tabThree.textContent = topics[2];
+  tabFour.textContent = topics[3];
+  tabFive.textContent = topics[4];
+
 
 
  return topicsDiv;
 }
 
 import axios from 'axios';
-const tabsAppender = (selector) => {
+
   // TASK 4
   // ---------------------
   // Implement this function which takes a css selector as its only argument.
@@ -45,24 +56,32 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
-  
+ 
 
+
+  const tabsAppender = (selector) => {
+    
   
     axios.get(`http://localhost:5000/api/topics`)
-    .then(resp =>{
-      const tabsNames = resp.data
-      topicsDiv.appendChild(Tabs(tabsNames))
-
-      console.log(tabsNames);
-    }).catch(err =>{
-      console.error(err)
+    .then(resp => { 
+      
+      const response = resp.data
+      
+      document.querySelector(selector).append(Tabs(response.topics));
+      
+      
+      console.log(resp);
+   
     })
-  
 
 
-  }
 
-
+    
+    
+    .catch(err => {
+      console.error(err);
+    })
+}
 
 
 
